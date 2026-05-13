@@ -46,107 +46,212 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-<nav className="bg-white text-black p-4 border-b-2" style={{ borderColor: '#ceae6e' }}>
-  <div className="max-w-6xl mx-auto flex justify-between items-center">
-    <a href="/" className="flex items-center">
-      <Image 
-        src="/images/mnemonic-logo.png" 
-        alt="Mnemonic" 
-        width={200}
-        height={64}
-        priority
-      />
-    </a>
-    <ul className="flex gap-6">
-      <li><a href="/" className="hover:underline">Home</a></li>
-      <li><a href="/services" className="hover:underline">Services</a></li>
-      <li><a href="/about" className="hover:underline">About</a></li>
-      <li><a href="/blog" className="hover:underline">Blog</a></li>
-      <li><a href="/contact" className="hover:underline">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+      <nav className="bg-white text-black p-4 border-b-2 sticky top-0 z-50 shadow-sm" style={{ borderColor: '#ceae6e' }}>
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <a href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
+            <Image 
+              src="/images/mnemonic-logo.png" 
+              alt="Mnemonic" 
+              width={200}
+              height={64}
+              priority
+            />
+          </a>
+          <ul className="flex gap-8">
+            <li><a href="/" className="hover:text-amber-600 transition-colors duration-300 relative group">Home<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+            <li><a href="/services" className="hover:text-amber-600 transition-colors duration-300 relative group">Services<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+            <li><a href="/about" className="hover:text-amber-600 transition-colors duration-300 relative group">About<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+            <li><a href="/blog" className="hover:text-amber-600 transition-colors duration-300 relative group">Blog<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+            <li><a href="/contact" className="hover:text-amber-600 transition-colors duration-300 relative group">Contact<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+          </ul>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative py-20 px-4">
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            background: `linear-gradient(135deg, #ceae6e 0%, #443416 100%)`,
+          }}
+        ></div>
+        
+        <div className="max-w-6xl mx-auto relative z-10">
+          <h2 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: '#443416' }}>Get in Touch</h2>
+          <div className="w-24 h-1 rounded" style={{ backgroundColor: '#ceae6e' }}></div>
+          <p className="text-xl text-gray-600 mt-6">We'd love to hear about your translation project. Fill out the form below and we'll get back to you within 24 hours.</p>
+        </div>
+      </section>
 
       {/* Contact Content */}
       <section className="py-16 px-4">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-4xl font-bold mb-4" style={{ color: '#443416' }}>Get in Touch</h2>
-          <p className="text-gray-600 mb-8">Have a translation project? Fill out the form below and we'll get back to you within 24 hours.</p>
-
+        <div className="max-w-3xl mx-auto">
           {submitted && (
-            <div className="border-l-4 border-green-500 bg-green-50 text-green-700 px-4 py-3 rounded mb-6">
-              ✓ Thank you! We'll contact you soon.
+            <div className="mb-8 rounded-lg p-6 border-l-4 transition-all duration-500 animate-pulse" style={{ borderColor: '#ceae6e', backgroundColor: '#f0fdf4' }}>
+              <div className="flex items-center">
+                <span className="text-3xl mr-4">✓</span>
+                <div>
+                  <h4 className="font-bold" style={{ color: '#443416' }}>Thank you!</h4>
+                  <p className="text-gray-600">We've received your message and will contact you within 24 hours.</p>
+                </div>
+              </div>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6 bg-gray-50 p-8 rounded-lg border">
-            <div>
-              <label className="block text-gray-700 font-bold mb-2">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-600"
-                placeholder="Your name"
-              />
+          <form onSubmit={handleSubmit} className="rounded-lg p-8 shadow-lg transition-all duration-500" style={{ backgroundColor: '#f9f7f4' }}>
+            <div className="space-y-6">
+              {/* Name Field */}
+              <div className="group">
+                <label className="block text-sm font-bold mb-2" style={{ color: '#443416' }}>Your Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all duration-300"
+                  style={{ 
+                    borderColor: '#ceae6e',
+                    '--tw-ring-color': '#ceae6e'
+                  } as React.CSSProperties}
+                  placeholder="John Doe"
+                />
+              </div>
+
+              {/* Email Field */}
+              <div className="group">
+                <label className="block text-sm font-bold mb-2" style={{ color: '#443416' }}>Email Address *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all duration-300"
+                  style={{ 
+                    borderColor: '#ceae6e',
+                    '--tw-ring-color': '#ceae6e'
+                  } as React.CSSProperties}
+                  placeholder="john@example.com"
+                />
+              </div>
+
+              {/* Phone Field */}
+              <div className="group">
+                <label className="block text-sm font-bold mb-2" style={{ color: '#443416' }}>Phone Number (Optional)</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all duration-300"
+                  style={{ 
+                    borderColor: '#ceae6e',
+                    '--tw-ring-color': '#ceae6e'
+                  } as React.CSSProperties}
+                  placeholder="+54 9 123 456 7890"
+                />
+              </div>
+
+              {/* Message Field */}
+              <div className="group">
+                <label className="block text-sm font-bold mb-2" style={{ color: '#443416' }}>Tell Us About Your Project *</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={6}
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all duration-300 resize-none"
+                  style={{ 
+                    borderColor: '#ceae6e',
+                    '--tw-ring-color': '#ceae6e'
+                  } as React.CSSProperties}
+                  placeholder="What type of translation do you need? What's your timeline? Any specific requirements?"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#443416' }}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <span className="animate-spin mr-2">⟳</span>
+                    Sending your message...
+                  </span>
+                ) : (
+                  'Send Quote Request'
+                )}
+              </button>
             </div>
 
-            <div>
-              <label className="block text-gray-700 font-bold mb-2">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-600"
-                placeholder="your@email.com"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-bold mb-2">Phone (Optional)</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-600"
-                placeholder="Your phone number"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-bold mb-2">Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-600"
-                placeholder="Tell us about your translation project..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full text-white py-3 rounded-lg font-bold hover:opacity-90 disabled:opacity-50"
-              style={{ backgroundColor: '#443416' }}
-            >
-              {loading ? 'Sending...' : 'Send Quote Request'}
-            </button>
+            <p className="text-sm text-gray-500 mt-6 text-center">
+              * Required fields. We'll get back to you within 24 hours.
+            </p>
           </form>
+
+          {/* Contact Info */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="rounded-lg p-6 text-center transition-all duration-500 hover:shadow-lg hover:-translate-y-1" style={{ backgroundColor: '#f9f7f4' }}>
+              <div className="text-4xl mb-4">📧</div>
+              <h4 className="font-bold mb-2" style={{ color: '#443416' }}>Email</h4>
+              <a href="mailto:mnemonictranslation@gmail.com" className="text-gray-600 hover:underline transition-colors duration-300">
+                mnemonictranslation@gmail.com
+              </a>
+            </div>
+
+            <div className="rounded-lg p-6 text-center transition-all duration-500 hover:shadow-lg hover:-translate-y-1" style={{ backgroundColor: '#f9f7f4' }}>
+              <div className="text-4xl mb-4">🌍</div>
+              <h4 className="font-bold mb-2" style={{ color: '#443416' }}>Location</h4>
+              <p className="text-gray-600">Argentina</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 mt-8" style={{ background: `linear-gradient(135deg, #443416 0%, #1a1a1a 100%)` }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-6 text-white">Can't find what you need?</h3>
+          <p className="text-lg mb-8 text-gray-200">Feel free to reach out directly with any questions</p>
+          <a 
+            href="mailto:mnemonictranslation@gmail.com"
+            className="inline-block px-10 py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95"
+            style={{ backgroundColor: '#ceae6e', color: '#1a1a1a' }}
+          >
+            Send an Email
+          </a>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-8 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <p>&copy; 2024 Mnemonic. All rights reserved.</p>
+      <footer className="bg-black text-white py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Quick Links</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="/services" className="hover:text-white transition-colors duration-300">Services</a></li>
+                <li><a href="/about" className="hover:text-white transition-colors duration-300">About</a></li>
+                <li><a href="/blog" className="hover:text-white transition-colors duration-300">Blog</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Contact</h4>
+              <p className="text-gray-400">mnemonictranslation@gmail.com</p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Follow Us</h4>
+              <p className="text-gray-400">Coming soon</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Mnemonic. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
