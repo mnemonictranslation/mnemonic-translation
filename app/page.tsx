@@ -1,56 +1,61 @@
 import Image from 'next/image';
+import Navigation from './components/navigation';
+import Footer from './components/footer';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-white text-black p-4 border-b-2 sticky top-0 z-50 shadow-sm" style={{ borderColor: '#ceae6e' }}>
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <a href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
-            <Image 
-              src="/images/mnemonic-logo.png" 
-              alt="Mnemonic" 
-              width={200}
-              height={64}
-              priority
-            />
-          </a>
-          <ul className="flex gap-8">
-            <li><a href="/" className="hover:text-amber-600 transition-colors duration-300 relative group">Home<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/services" className="hover:text-amber-600 transition-colors duration-300 relative group">Services<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/about" className="hover:text-amber-600 transition-colors duration-300 relative group">About<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/blog" className="hover:text-amber-600 transition-colors duration-300 relative group">Blog<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/contact" className="hover:text-amber-600 transition-colors duration-300 relative group">Contact<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-          </ul>
-        </div>
-      </nav>
+<nav className="bg-white text-black border-b-2 sticky top-0 z-50 shadow-sm" style={{ borderColor: '#ceae6e' }}>
+  <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
+    {/* Logo on both mobile and desktop */}
+    <a href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
+      <Image 
+        src="/images/mnemonic-face.png" 
+        alt="Mnemonic" 
+        width={50}
+        height={50}
+        priority
+      />
+    </a>
+
+    {/* Navigation links */}
+    <ul className="flex gap-4 md:gap-8 text-sm md:text-base">
+      <li><a href="/" className="hover:text-amber-600 transition-colors duration-300 relative group">Home<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+      <li><a href="/services" className="hover:text-amber-600 transition-colors duration-300 relative group">Services<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+      <li><a href="/about" className="hover:text-amber-600 transition-colors duration-300 relative group">About<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+      <li><a href="/blog" className="hover:text-amber-600 transition-colors duration-300 relative group">Blog<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+      <li><a href="/contact" className="hover:text-amber-600 transition-colors duration-300 relative group">Contact<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
+    </ul>
+  </div>
+</nav>
 
       {/* Hero Section */}
-      <section className="relative py-32 px-4 overflow-hidden">
-        {/* Animated background gradient */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            background: `linear-gradient(135deg, #ceae6e 0%, #443416 100%)`,
-          }}
-        ></div>
-        
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <h2 className="text-6xl md:text-7xl font-bold mb-6 leading-tight" style={{ color: '#443416' }}>
-            Professional Translation & Localization
-          </h2>
-          <p className="text-xl md:text-2xl mb-12 text-gray-600 max-w-3xl mx-auto">
-            Expert translation services for games, science, and certified documents
-          </p>
-          <a 
-            href="/contact" 
-            className="inline-block px-10 py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95"
-            style={{ backgroundColor: '#443416' }}
-          >
-            Get a Free Quote
-          </a>
-        </div>
-      </section>
+<section className="relative py-32 px-4 overflow-hidden">
+  {/* Animated background gradient */}
+  <div 
+    className="absolute inset-0 opacity-10"
+    style={{
+      background: `linear-gradient(135deg, #ceae6e 0%, #443416 100%)`,
+    }}
+  ></div>
+  
+  <div className="max-w-6xl mx-auto text-center relative z-10">
+    <h2 className="text-6xl md:text-7xl font-bold mb-6 leading-tight" style={{ color: '#443416' }}>
+      Professional Translation & Localization
+    </h2>
+    <p className="text-xl md:text-2xl mb-12 text-gray-600 max-w-3xl mx-auto">
+      Expert translation services for games, science, and certified documents
+    </p>
+    <a 
+      href="/contact" 
+      className="inline-block px-10 py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95"
+      style={{ backgroundColor: '#443416' }}
+    >
+      Get a Free Quote
+    </a>
+  </div>
+</section>
 
       {/* Services Overview */}
       <section className="py-24 px-4" style={{ backgroundColor: '#f9f7f4' }}>
@@ -147,32 +152,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="/services" className="hover:text-white transition-colors duration-300">Services</a></li>
-                <li><a href="/about" className="hover:text-white transition-colors duration-300">About</a></li>
-                <li><a href="/blog" className="hover:text-white transition-colors duration-300">Blog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Contact</h4>
-              <p className="text-gray-400">mnemonictranslation@gmail.com</p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Follow Us</h4>
-              <p className="text-gray-400">Coming soon</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Mnemonic. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

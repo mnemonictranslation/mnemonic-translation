@@ -1,53 +1,51 @@
-import Image from 'next/image';
+'use client';
+
+import { useState, useEffect } from 'react';
+import Navigation from '../components/navigation';
+import Footer from '../components/footer';
+import BlogCard from '../components/blogcard';
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  excerpt: string;
+  content: string;
+}
 
 export default function Blog() {
-  const posts = [
-    {
-      slug: 'why-professional-translation-matters',
-      title: 'Why Professional Translation Matters',
-      date: 'May 10, 2024',
-      excerpt: 'Learn why hiring professional translators is crucial for your business success and how it can save you money in the long run.',
-      category: 'Business',
-    },
-    {
-      slug: 'top-5-languages-for-global-business',
-      title: 'Top 5 Languages for Global Business',
-      date: 'May 5, 2024',
-      excerpt: 'Discover which languages can help expand your business internationally and reach new markets effectively.',
-      category: 'Languages',
-    },
-    {
-      slug: 'translation-vs-localization',
-      title: 'Translation vs. Localization: What\'s the Difference?',
-      date: 'April 28, 2024',
-      excerpt: 'Understanding the key differences between translation and localization and when to use each for maximum impact.',
-      category: 'Localization',
-    },
-  ];
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Get posts from localStorage
+    const savedPosts = localStorage.getItem('blog-posts');
+    if (savedPosts) {
+      try {
+        setPosts(JSON.parse(savedPosts));
+      } catch (error) {
+        console.error('Error parsing blog posts:', error);
+      }
+    }
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="py-20 text-center">
+          <p>Loading...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="bg-white text-black p-4 border-b-2 sticky top-0 z-50 shadow-sm" style={{ borderColor: '#ceae6e' }}>
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <a href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
-            <Image 
-              src="/images/mnemonic-logo.png" 
-              alt="Mnemonic" 
-              width={200}
-              height={64}
-              priority
-            />
-          </a>
-          <ul className="flex gap-8">
-            <li><a href="/" className="hover:text-amber-600 transition-colors duration-300 relative group">Home<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/services" className="hover:text-amber-600 transition-colors duration-300 relative group">Services<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/about" className="hover:text-amber-600 transition-colors duration-300 relative group">About<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/blog" className="hover:text-amber-600 transition-colors duration-300 relative group">Blog<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-            <li><a href="/contact" className="hover:text-amber-600 transition-colors duration-300 relative group">Contact<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#ceae6e' }}></span></a></li>
-          </ul>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="relative py-20 px-4">
@@ -68,48 +66,25 @@ export default function Blog() {
       {/* Blog Content */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="space-y-8">
-            {posts.map((post, index) => (
-              <article 
-                key={post.slug} 
-                className="group rounded-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-                style={{ backgroundColor: '#f9f7f4' }}
-              >
-                <div className="p-8">
-                  <div className="flex flex-wrap gap-3 mb-4">
-                    <span 
-                      className="text-xs font-bold px-3 py-1 rounded-full text-white transition-all duration-300"
-                      style={{ backgroundColor: index % 2 === 0 ? '#ceae6e' : '#771023' }}
-                    >
-                      {post.category}
-                    </span>
-                    <span className="text-xs text-gray-500 px-3 py-1">
-                      {post.date}
-                    </span>
-                  </div>
-
-                  <h3 className="text-3xl font-bold mb-4 transition-colors duration-300 group-hover:opacity-80" style={{ color: '#443416' }}>
-                    <a href={`/blog/${post.slug}`} className="hover:underline">
-                      {post.title}
-                    </a>
-                  </h3>
-
-                  <p className="text-lg text-gray-600 mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-                    {post.excerpt}
-                  </p>
-
-                  <a 
-                    href={`/blog/${post.slug}`} 
-                    className="inline-flex items-center font-bold transition-all duration-300 group-hover:translate-x-2"
-                    style={{ color: '#ceae6e' }}
-                  >
-                    Read More
-                    <span className="ml-2">→</span>
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+          {posts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg">No blog posts yet. Check back soon!</p>
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {posts.map((post, index) => (
+                <BlogCard
+                  key={post.slug}
+                  slug={post.slug}
+                  title={post.title}
+                  date={post.date}
+                  category={post.category}
+                  excerpt={post.excerpt}
+                  index={index}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Coming Soon Section */}
           <div className="mt-16 rounded-lg p-8 text-center" style={{ backgroundColor: '#f9f7f4' }}>
@@ -141,32 +116,7 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="/services" className="hover:text-white transition-colors duration-300">Services</a></li>
-                <li><a href="/about" className="hover:text-white transition-colors duration-300">About</a></li>
-                <li><a href="/blog" className="hover:text-white transition-colors duration-300">Blog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Contact</h4>
-              <p className="text-gray-400">mnemonictranslation@gmail.com</p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ceae6e' }}>Follow Us</h4>
-              <p className="text-gray-400">Coming soon</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Mnemonic. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
