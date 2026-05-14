@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
+import { supabase } from '@/lib/supabase';
 
 interface BlogPost {
+  id?: number;
   slug: string;
   title: string;
   date: string;
@@ -26,17 +28,32 @@ export default function AdminBlog() {
     content: '',
   });
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const ADMIN_PASSWORD = 'mnemonic2024';
 
   useEffect(() => {
     if (isAuthenticated) {
-      const savedPosts = localStorage.getItem('blog-posts');
-      if (savedPosts) {
-        setPosts(JSON.parse(savedPosts));
-      }
+      fetchPosts();
     }
   }, [isAuthenticated]);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching posts:', error);
+      } else {
+        setPosts(data || []);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,56 +74,82 @@ export default function AdminBlog() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!formData.slug || !formData.title || !formData.excerpt || !formData.content) {
       setMessage('Please fill in all fields');
+      setLoading(false);
       return;
     }
 
     try {
-      const existingIndex = posts.findIndex(p => p.slug === formData.slug);
-      let updatedPosts;
+      // Check if post exists
+      const { data: existingPost } = await supabase
+        .from('blog_posts')
+        .select('id')
+        .eq('slug', formData.slug)
+        .single();
 
-      if (existingIndex >= 0) {
-        updatedPosts = [...posts];
-        updatedPosts[existingIndex] = formData;
+      let result;
+
+      if (existingPost) {
+        // Update existing post
+        result = await supabase
+          .from('blog_posts')
+          .update(formData)
+          .eq('slug', formData.slug);
+
         setMessage('✓ Blog post updated successfully!');
       } else {
-        updatedPosts = [...posts, formData];
+        // Create new post
+        result = await supabase
+          .from('blog_posts')
+          .insert([formData]);
+
         setMessage('✓ Blog post published successfully!');
       }
 
-      // Save to localStorage
-      const jsonString = JSON.stringify(updatedPosts);
-      localStorage.setItem('blog-posts', jsonString);
-      console.log('Saved to localStorage:', jsonString);
-      
-      setPosts(updatedPosts);
+      if (result.error) {
+        setMessage('Error: ' + result.error.message);
+      } else {
+        setFormData({
+          slug: '',
+          title: '',
+          date: new Date().toISOString().split('T')[0],
+          category: 'Business',
+          excerpt: '',
+          content: '',
+        });
 
-      setFormData({
-        slug: '',
-        title: '',
-        date: new Date().toISOString().split('T')[0],
-        category: 'Business',
-        excerpt: '',
-        content: '',
-      });
-
-      setTimeout(() => setMessage(''), 3000);
+        fetchPosts();
+        setTimeout(() => setMessage(''), 3000);
+      }
     } catch (error) {
       setMessage('Error: ' + (error as Error).message);
-      console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleDeletePost = (slug: string) => {
-    const updatedPosts = posts.filter(p => p.slug !== slug);
-    localStorage.setItem('blog-posts', JSON.stringify(updatedPosts));
-    setPosts(updatedPosts);
-    setMessage('✓ Post deleted');
-    setTimeout(() => setMessage(''), 2000);
+  const handleDeletePost = async (slug: string) => {
+    try {
+      const { error } = await supabase
+        .from('blog_posts')
+        .delete()
+        .eq('slug', slug);
+
+      if (error) {
+        setMessage('Error deleting post');
+      } else {
+        setMessage('✓ Post deleted');
+        fetchPosts();
+        setTimeout(() => setMessage(''), 2000);
+      }
+    } catch (error) {
+      setMessage('Error: ' + (error as Error).message);
+    }
   };
 
   if (!isAuthenticated) {
@@ -266,10 +309,11 @@ export default function AdminBlog() {
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
+                    disabled={loading}
+                    className="w-full py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 disabled:opacity-50"
                     style={{ backgroundColor: '#443416' }}
                   >
-                    Publish Post
+                    {loading ? 'Publishing...' : 'Publish Post'}
                   </button>
                 </div>
               </form>

@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { use } from 'react';
 import Navigation from '../../components/navigation';
 import Footer from '../../components/footer';
+import { supabase } from '../../../lib/supabase';
 
 interface BlogPost {
+  id?: number;
   slug: string;
   title: string;
   date: string;
@@ -24,19 +26,30 @@ export default function BlogPost({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedPosts = localStorage.getItem('blog-posts');
-    
-    if (savedPosts) {
-      try {
-        const posts = JSON.parse(savedPosts);
-        const foundPost = posts.find((p: BlogPost) => p.slug === slug);
-        setPost(foundPost || null);
-      } catch (error) {
-        console.error('Error parsing posts:', error);
-      }
-    }
-    setLoading(false);
+    fetchPost();
   }, [slug]);
+
+  const fetchPost = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (error) {
+        console.error('Error fetching post:', error);
+        setPost(null);
+      } else {
+        setPost(data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setPost(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return (
