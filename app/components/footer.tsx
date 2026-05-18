@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-12 px-4">
@@ -22,8 +24,14 @@ export default function Footer() {
             <p className="text-gray-400">Coming soon</p>
           </div>
         </div>
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Mnemonic. All rights reserved.</p>
+        <div className="border-t border-gray-800 pt-8 flex justify-between items-center">
+          <p className="text-gray-400">&copy; 2024 Mnemonic. All rights reserved.</p>
+          <Link 
+            href="/admin" 
+            className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-300"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>

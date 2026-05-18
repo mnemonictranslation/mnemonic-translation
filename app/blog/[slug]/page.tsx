@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { use } from 'react';
+import { marked } from 'marked';
 import Navigation from '../../components/navigation';
 import Footer from '../../components/footer';
 import { supabase } from '../../../lib/supabase';
+import DOMPurify from 'dompurify';
 
 interface BlogPost {
   id?: number;
@@ -15,6 +17,12 @@ interface BlogPost {
   excerpt: string;
   content: string;
 }
+
+// Configure marked
+marked.setOptions({
+  breaks: true,
+  gfm: true, // GitHub Flavored Markdown
+});
 
 export default function BlogPost({ 
   params 
@@ -80,9 +88,127 @@ export default function BlogPost({
   }
 
   const categoryColor = post.category === 'Business' ? '#ceae6e' : post.category === 'Languages' ? '#771023' : '#443416';
-
+  
+  // Convert markdown to HTML
+  const htmlContent = marked(post.content);
+  
   return (
     <div className="min-h-screen bg-white">
+      <style>{`
+        .markdown-content h1 {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #443416;
+          margin-top: 1.5rem;
+          margin-bottom: 1rem;
+        }
+        .markdown-content h2 {
+          font-size: 1.75rem;
+          font-weight: bold;
+          color: #443416;
+          margin-top: 1.25rem;
+          margin-bottom: 0.875rem;
+        }
+        .markdown-content h3 {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #443416;
+          margin-top: 1rem;
+          margin-bottom: 0.75rem;
+        }
+        .markdown-content h4 {
+          font-size: 1.25rem;
+          font-weight: bold;
+          color: #443416;
+          margin-top: 0.875rem;
+          margin-bottom: 0.625rem;
+        }
+        .markdown-content p {
+          margin-bottom: 1rem;
+          line-height: 1.75;
+          color: #374151;
+        }
+        .markdown-content ul, .markdown-content ol {
+          margin-left: 1.5rem;
+          margin-bottom: 1rem;
+        }
+        .markdown-content li {
+          margin-bottom: 0.5rem;
+          color: #374151;
+          line-height: 1.75;
+        }
+        .markdown-content strong {
+          font-weight: bold;
+          color: #1f2937;
+        }
+        .markdown-content em {
+          font-style: italic;
+        }
+        .markdown-content a {
+          color: #ceae6e;
+          text-decoration: underline;
+          transition: opacity 0.3s;
+        }
+        .markdown-content a:hover {
+          opacity: 0.8;
+        }
+        .markdown-content code {
+          background-color: #f3f4f6;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-family: monospace;
+          color: #443416;
+          font-size: 0.9em;
+        }
+        .markdown-content pre {
+          background-color: #1f2937;
+          color: #f3f4f6;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          overflow-x: auto;
+          margin-bottom: 1rem;
+          line-height: 1.5;
+        }
+        .markdown-content pre code {
+          background-color: transparent;
+          padding: 0;
+          color: #f3f4f6;
+        }
+        .markdown-content blockquote {
+          border-left: 4px solid #ceae6e;
+          padding-left: 1rem;
+          margin-left: 0;
+          margin-bottom: 1rem;
+          color: #666;
+          font-style: italic;
+        }
+        .markdown-content table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 1rem;
+        }
+        .markdown-content th, .markdown-content td {
+          border: 1px solid #ddd;
+          padding: 0.75rem;
+          text-align: left;
+        }
+        .markdown-content th {
+          background-color: #f3f4f6;
+          font-weight: bold;
+        }
+        .markdown-content img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 0.5rem;
+          margin: 1rem 0;
+        }
+        .markdown-content hr {
+          border: none;
+          border-top: 1px solid #ddd;
+          margin: 2rem 0;
+        }
+      `}</style>
+
       <Navigation />
 
       {/* Blog Post Content */}
@@ -117,43 +243,13 @@ export default function BlogPost({
             <div className="w-24 h-1 rounded" style={{ backgroundColor: '#ceae6e' }}></div>
           </div>
 
-          {/* Post Content */}
-          <article className="prose prose-lg max-w-none mb-12">
-            <div className="text-gray-700 leading-relaxed space-y-6">
-              {post.content.split('\n\n').map((paragraph, index) => {
-                // Check if this is a heading
-                if (paragraph.trim().match(/^[A-Z][^.!?]*$/)) {
-                  return (
-                    <h2 
-                      key={index}
-                      className="text-3xl font-bold mt-8 mb-4 pt-4"
-                      style={{ color: '#443416' }}
-                    >
-                      {paragraph.trim()}
-                    </h2>
-                  );
-                }
-                // Check if this is a list
-                if (paragraph.includes('- ')) {
-                  const items = paragraph.split('\n').filter(item => item.trim().startsWith('-'));
-                  return (
-                    <ul key={index} className="space-y-2 ml-6">
-                      {items.map((item, i) => (
-                        <li key={i} className="text-gray-700">
-                          {item.replace('- ', '')}
-                        </li>
-                      ))}
-                    </ul>
-                  );
-                }
-                return (
-                  <p key={index} className="text-lg text-gray-700">
-                    {paragraph.trim()}
-                  </p>
-                );
-              })}
-            </div>
-          </article>
+          {/* Post Content - Markdown rendered as HTML */}
+          <div 
+  className="markdown-content mb-12"
+  dangerouslySetInnerHTML={{ 
+    __html: DOMPurify.sanitize(htmlContent as string)
+  }}
+/>
 
           {/* Post CTA */}
           <div className="rounded-lg p-8 text-center mb-12" style={{ backgroundColor: '#f9f7f4' }}>

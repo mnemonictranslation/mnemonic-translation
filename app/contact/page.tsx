@@ -12,8 +12,10 @@ export default function Contact() {
     phone: '',
     message: '',
   });
+  const [file, setFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -22,24 +24,71 @@ export default function Contact() {
     });
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    
+    if (selectedFile) {
+      // Check file size (max 10MB)
+      if (selectedFile.size > 10 * 1024 * 1024) {
+        setError('File size must be less than 10MB');
+        setFile(null);
+        return;
+      }
+      
+      // Check file type (allow common document types)
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      ];
+      
+      if (!allowedTypes.includes(selectedFile.type)) {
+        setError('Please upload a valid file type (PDF, DOC, DOCX, TXT, XLS, XLSX)');
+        setFile(null);
+        return;
+      }
+      
+      setError('');
+      setFile(selectedFile);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     try {
+      // Create FormData to handle both text and file
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('message', formData.message);
+      
+      if (file) {
+        formDataToSend.append('file', file);
+      }
+
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
 
       if (response.ok) {
         setSubmitted(true);
         setFormData({ name: '', email: '', phone: '', message: '' });
+        setFile(null);
         setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setError('Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
+      setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -76,6 +125,15 @@ export default function Contact() {
                   <h4 className="font-bold" style={{ color: '#443416' }}>Thank you!</h4>
                   <p className="text-gray-600">We've received your message and will contact you within 24 hours.</p>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-8 rounded-lg p-6 border-l-4" style={{ borderColor: '#771023', backgroundColor: '#fef2f2' }}>
+              <div className="flex items-center">
+                <span className="text-3xl mr-4">⚠</span>
+                <p className="text-red-700">{error}</p>
               </div>
             </div>
           )}
@@ -151,6 +209,35 @@ export default function Contact() {
                   } as React.CSSProperties}
                   placeholder="What type of translation do you need? What's your timeline? Any specific requirements?"
                 />
+              </div>
+
+              {/* File Upload Field */}
+              <div className="group">
+                <label className="block text-sm font-bold mb-2" style={{ color: '#443416' }}>
+                  Attach Document (Optional)
+                </label>
+                <div className="relative">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx,.txt,.xls,.xlsx"
+                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:font-bold file:cursor-pointer"
+                    style={{ 
+                      borderColor: '#ceae6e',
+                      '--tw-ring-color': '#ceae6e'
+                    } as React.CSSProperties}
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  Accepted formats: PDF, DOC, DOCX, TXT, XLS, XLSX (max 10MB)
+                </p>
+                {file && (
+                  <div className="mt-2 p-3 rounded bg-green-50 border-l-4" style={{ borderColor: '#ceae6e' }}>
+                    <p className="text-sm text-gray-700">
+                      📎 {file.name} ({(file.size / 1024).toFixed(2)} KB)
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Submit Button */}

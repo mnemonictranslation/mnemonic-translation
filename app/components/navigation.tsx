@@ -5,15 +5,19 @@ import Image from 'next/image';
 export default function Navigation() {
   return (
     <nav className="bg-white text-black border-b-2 sticky top-0 z-50 shadow-sm" style={{ borderColor: '#ceae6e' }}>
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
+      <div className="max-w-6xl mx-auto flex justify-between items-center py-4">
         {/* Logo on both mobile and desktop */}
         <a href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
-          <Image 
-            src="/images/mnemonic-face.png" 
+          <img 
+            src="/images/mnemonic-logo.png" 
             alt="Mnemonic" 
-            width={50}
-            height={50}
-            priority
+            width={200}
+            height={62}
+            className="hover:opacity-80 transition-opacity duration-300"
+            style={{ 
+    maxWidth: '100%',
+    height: 'auto',
+  }}
           />
         </a>
 
