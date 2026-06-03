@@ -1,8 +1,18 @@
+'use client';
+
+import { useEffect } from 'react';
 import Image from 'next/image';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
+import { useNavThreshold } from '../../lib/navContext';
 
 export default function Services() {
+  const { setScrollThreshold } = useNavThreshold();
+
+  useEffect(() => {
+    setScrollThreshold(100); // Disappear after 400px
+  }, [setScrollThreshold]);
+  
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -18,7 +28,6 @@ export default function Services() {
         
         <div className="max-w-6xl mx-auto relative z-10">
           <h2 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: '#443416' }}>Our Translation Services</h2>
-          <div className="w-24 h-1 rounded" style={{ backgroundColor: '#ceae6e' }}></div>
         </div>
       </section>
 

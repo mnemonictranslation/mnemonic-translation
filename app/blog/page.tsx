@@ -5,6 +5,7 @@ import Navigation from '../components/navigation';
 import Footer from '../components/footer';
 import BlogCard from '../components/blogcard';
 import { supabase } from '../../lib/supabase';
+import { useNavThreshold } from '../../lib/navContext';
 
 interface BlogPost {
   id?: number;
@@ -17,6 +18,11 @@ interface BlogPost {
 }
 
 export default function Blog() {
+  const { setScrollThreshold } = useNavThreshold();
+
+  useEffect(() => {
+    setScrollThreshold(400); // Disappear after 400px
+  }, [setScrollThreshold]);
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 

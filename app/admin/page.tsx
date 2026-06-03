@@ -1,5 +1,6 @@
 'use client';
 
+import { useNavThreshold } from '../../lib/navContext';
 import { useState, useEffect } from 'react';
 import { marked } from 'marked';
 import Navigation from '../components/navigation';
@@ -474,7 +475,7 @@ export default function AdminBlog() {
   if (!user) {
     return (
       <div className="min-h-screen bg-white">
-        <Navigation />
+  
 
         <section className="py-20 px-4">
           <div className="max-w-md mx-auto">

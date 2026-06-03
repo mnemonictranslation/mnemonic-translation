@@ -1,39 +1,53 @@
+'use client';
+
 import Image from 'next/image';
 import Navigation from './components/navigation';
+import LatestBlogPosts from './components/latestBlogPosts';
 import Footer from './components/footer';
+import { useEffect } from 'react';
+import { useNavThreshold } from '../lib/navContext';
 
 export default function Home() {
+  const { setScrollThreshold } = useNavThreshold();
+
+  useEffect(() => {
+    setScrollThreshold(800); // Full screen
+  }, [setScrollThreshold]);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white w-full">
       {/* Use Navigation Component */}
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative py-32 px-4 overflow-hidden">
-        {/* Animated background gradient */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            background: `linear-gradient(135deg, #ceae6e 0%, #443416 100%)`,
-          }}
-        ></div>
-        
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <h2 className="text-6xl md:text-7xl font-bold mb-6 leading-tight" style={{ color: '#443416' }}>
-            Professional Translation & Localization
-          </h2>
-          <p className="text-xl md:text-2xl mb-12 text-gray-600 max-w-3xl mx-auto">
-            Expert translation services for games, science, and certified documents
-          </p>
-          <a 
-            href="/contact" 
-            className="inline-block px-10 py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95"
-            style={{ backgroundColor: '#443416' }}
-          >
-            Get a Free Quote
-          </a>
-        </div>
-      </section>
+
+
+      {/* Hero Section - Full Screen */}
+<section className="relative -mt-[95px] w-screen h-screen overflow-hidden bg-cover bg-center bg-no-repeat flex items-center justify-center" style={{
+  backgroundImage: 'url(/images/hero-image-1.jpg)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundAttachment: 'fixed',
+  
+}}>
+  {/* Overlay for readability */}
+  <div className="absolute inset-0 bg-black/40"></div>
+  
+  <div className="max-w-6xl mx-auto text-center relative z-10 px-4">
+    <h2 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-white" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
+      Professional Translation & Localization
+    </h2>
+    <p className="text-xl md:text-2xl mb-12 text-white max-w-3xl mx-auto" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
+      Expert translation services for games, science, and certified documents
+    </p>
+    <a 
+      href="/contact" 
+      className="inline-block px-10 py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95"
+      style={{ backgroundColor: '#443416' }}
+    >
+      Get a Free Quote
+    </a>
+  </div>
+</section>
 
       {/* Services Overview */}
       <section className="py-24 px-4" style={{ backgroundColor: '#f9f7f4' }}>
@@ -114,6 +128,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+       {/* Latest Blog Posts */}
+      <LatestBlogPosts />
 
       {/* CTA Section */}
       <section className="py-20 px-4" style={{ background: `linear-gradient(135deg, #443416 0%, #1a1a1a 100%)` }}>

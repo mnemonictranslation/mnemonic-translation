@@ -1,5 +1,6 @@
 'use client';
 
+import { useNavThreshold } from '../../../lib/navContext';
 import { useState, useEffect } from 'react';
 import { use } from 'react';
 import { marked } from 'marked';
@@ -36,6 +37,12 @@ export default function BlogPost({
   useEffect(() => {
     fetchPost();
   }, [slug]);
+
+const { setScrollThreshold } = useNavThreshold();
+
+  useEffect(() => {
+    setScrollThreshold(400); // Disappear after 400px
+  }, [setScrollThreshold]);
 
   const fetchPost = async () => {
     try {

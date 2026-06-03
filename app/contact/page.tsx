@@ -1,5 +1,7 @@
 'use client';
 
+import { useNavThreshold } from '../../lib/navContext';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import Navigation from '../components/navigation';
@@ -16,6 +18,12 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const { setScrollThreshold } = useNavThreshold();
+  
+    useEffect(() => {
+      setScrollThreshold(400); // Disappear after 400px
+    }, [setScrollThreshold]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({

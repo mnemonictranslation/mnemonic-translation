@@ -1,12 +1,19 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useNavThreshold } from '../../lib/navContext';
 import Image from 'next/image';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
 
 export default function About() {
+  const { setScrollThreshold } = useNavThreshold();
+
+  useEffect(() => {
+    setScrollThreshold(400); // Disappear after 400px
+  }, [setScrollThreshold]);
   return (
     <div className="min-h-screen bg-white">
-
-      <Navigation />
 
       {/* Hero Section */}
       <section className="relative py-20 px-4">
