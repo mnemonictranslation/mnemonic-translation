@@ -3,20 +3,14 @@ import { Resend } from 'resend';
 
 export async function POST(request: NextRequest) {
   try {
-    const rawKey = process.env.RESEND_API_KEY;
-    if (!rawKey) {
+    if (!process.env.RESEND_API_KEY) {
       console.error('Missing RESEND_API_KEY environment variable');
       return NextResponse.json(
         { error: 'Failed to process form' },
         { status: 500 }
       );
     }
-    console.log('RESEND_API_KEY debug:', {
-      length: rawKey.length,
-      prefix: rawKey.slice(0, 6),
-      suffix: rawKey.slice(-3),
-    });
-    const resend = new Resend(rawKey);
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const formData = await request.formData();
     
