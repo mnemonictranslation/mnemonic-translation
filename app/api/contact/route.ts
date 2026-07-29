@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: NextRequest) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Missing RESEND_API_KEY environment variable');
+      return NextResponse.json(
+        { error: 'Failed to process form' },
+        { status: 500 }
+      );
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const formData = await request.formData();
     
     const name = formData.get('name') as string;
