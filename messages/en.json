@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "languageSelector": "Language selector",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "about": "About",
+    "blog": "Blog",
+    "contactTitle": "Contact",
+    "followUs": "Follow Us",
+    "comingSoon": "Coming soon",
+    "rights": "All rights reserved.",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Expert translation services for games, science, and certified documents",
+      "cta": "Get a Free Quote"
+    },
+    "mission": "Translation is not just language — it's meaning, carried carefully across cultures. From sworn legal documents to game worlds and scientific research, we make sure nothing is lost in the crossing.",
+    "services": {
+      "title": "Our Services",
+      "sworn": {
+        "title": "Sworn Translation",
+        "description": "Official certified translations for legal and government documents"
+      },
+      "videogame": {
+        "title": "Videogame Localization",
+        "description": "Complete game localization including dialogue, UI, and cultural adaptation"
+      },
+      "scientific": {
+        "title": "Scientific & Technical",
+        "description": "Specialized translation for scientific papers, manuals, and technical documentation"
+      },
+      "interpreting": {
+        "title": "Interpreting",
+        "description": "Professional interpretation services for meetings, conferences, and events"
+      }
+    },
+    "blog": {
+      "title": "From the Blog",
+      "viewAll": "View All Articles",
+      "loading": "Loading blog posts..."
+    },
+    "cta": {
+      "title": "Ready to Start Your Project?",
+      "subtitle": "Get a free quote from our expert translators in less than 24 hours",
+      "button": "Get Your Free Quote Now"
+    }
+  },
+  "about": {
+    "title": "About Mnemonic",
+    "whoWeAre": {
+      "title": "Who We Are",
+      "p1": "Mnemonic is a specialized translation agency offering expert services in sworn translation, videogame localization, scientific and technical translation, and professional interpreting. We combine linguistic precision with cultural expertise to deliver translations that truly resonate with your target audience.",
+      "p2": "Our mission is simple: to deliver accurate, culturally-adapted translations that help our clients communicate effectively across languages and markets. Whether you need a legal document certified, a game localized for new regions, or scientific research translated for international publication, we have the expertise you need."
+    },
+    "values": {
+      "title": "Our Values",
+      "precision": {
+        "title": "Precision",
+        "description": "We ensure every translation is accurate and faithful to the original meaning and intent."
+      },
+      "cultural": {
+        "title": "Cultural Expertise",
+        "description": "We adapt content for different cultures, ensuring your message resonates locally."
+      },
+      "reliability": {
+        "title": "Reliability",
+        "description": "We deliver on time, every time, with consistent quality you can depend on."
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "We're building a world-class team of expert translators and interpreters. Meet our team members as we grow!",
+      "cta": "Get in Touch"
+    },
+    "cta": {
+      "title": "Partner With Mnemonic",
+      "subtitle": "Let's help your message reach the world",
+      "button": "Start Your Project"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "We'd love to hear about your translation project. Fill out the form below and we'll get back to you within 24 hours.",
+    "success": {
+      "title": "Thank you!",
+      "message": "We've received your message and will contact you within 24 hours."
+    },
+    "form": {
+      "name": "Your Name *",
+      "namePlaceholder": "John Doe",
+      "email": "Email Address *",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone Number (Optional)",
+      "phonePlaceholder": "+54 9 123 456 7890",
+      "message": "Tell Us About Your Project *",
+      "messagePlaceholder": "What type of translation do you need? What's your timeline? Any specific requirements?",
+      "file": "Attach Document (Optional)",
+      "fileHint": "Accepted formats: PDF, DOC, DOCX, TXT, XLS, XLSX (max 10MB)",
+      "submit": "Send Quote Request",
+      "submitting": "Sending your message...",
+      "requiredNote": "* Required fields. We'll get back to you within 24 hours.",
+      "fileTooLarge": "File size must be less than 10MB",
+      "fileInvalidType": "Please upload a valid file type (PDF, DOC, DOCX, TXT, XLS, XLSX)",
+      "submitError": "Failed to send message. Please try again.",
+      "genericError": "An error occurred. Please try again."
+    },
+    "info": {
+      "emailTitle": "Email",
+      "locationTitle": "Location",
+      "location": "Argentina"
+    },
+    "cta": {
+      "title": "Can't find what you need?",
+      "subtitle": "Feel free to reach out directly with any questions",
+      "button": "Send an Email"
+    }
+  },
+  "blog": {
+    "list": {
+      "title": "Translation & Localization Blog",
+      "subtitle": "Tips, insights, and industry updates from Mnemonic",
+      "loading": "Loading...",
+      "empty": "No blog posts yet. Check back soon!",
+      "comingSoonTitle": "More Articles Coming Soon",
+      "comingSoonBody": "We're regularly publishing new insights about translation, localization, and language services.",
+      "suggestTopic": "Suggest a Topic",
+      "readMore": "Read More",
+      "cta": {
+        "title": "Ready for Your Translation Project?",
+        "subtitle": "Get expert translation services from Mnemonic",
+        "button": "Get a Free Quote"
+      }
+    },
+    "post": {
+      "loading": "Loading...",
+      "backToBlog": "Back to Blog",
+      "notFoundTitle": "Post Not Found",
+      "notFoundBody": "Sorry, we couldn't find the blog post you're looking for.",
+      "ctaTitle": "Interested in our translation services?",
+      "ctaSubtitle": "Get a free quote for your project today",
+      "ctaButton": "Get a Quote",
+      "readMoreTitle": "Read More",
+      "viewAllArticles": "View All Articles",
+      "finalCtaTitle": "Ready to Start Your Project?",
+      "finalCtaSubtitle": "Our expert translators are ready to help",
+      "finalCtaButton": "Get Your Free Quote"
+    }
+  }
+}

@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { supabase } from '@/lib/supabase';
+import { Link } from '@/lib/i18n/navigation';
+import Reveal from './reveal';
 
 interface BlogPost {
   id: number;
@@ -14,6 +16,7 @@ interface BlogPost {
 }
 
 export default function LatestBlogPosts() {
+  const t = useTranslations('home.blog');
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -43,9 +46,9 @@ export default function LatestBlogPosts() {
 
   if (loading) {
     return (
-      <section className="py-24 px-4" style={{ backgroundColor: '#f9f7f4' }}>
-        <div className="max-w-6xl mx-auto text-center">
-          <p>Loading blog posts...</p>
+      <section className="py-28 px-4 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-gray-500">{t('loading')}</p>
         </div>
       </section>
     );
@@ -55,73 +58,52 @@ export default function LatestBlogPosts() {
     return null; // Don't show section if no posts
   }
 
-  const categoryColor = (category: string) => {
-    switch (category) {
-      case 'Business':
-        return '#ceae6e';
-      case 'Languages':
-        return '#771023';
-      case 'Localization':
-        return '#443416';
-      default:
-        return '#ceae6e';
-    }
-  };
-
   return (
-    <section className="py-24 px-4" style={{ backgroundColor: '#f9f7f4' }}>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h3 className="text-5xl font-bold mb-4" style={{ color: '#443416' }}>Learn more</h3>
-          <div className="w-24 h-1 mx-auto rounded" style={{ backgroundColor: '#ceae6e' }}></div>
-        </div>
+    <section className="py-28 md:py-40 px-4 bg-white">
+      <div className="max-w-4xl mx-auto">
+        <Reveal>
+          <h3 className="font-brand-serif text-4xl md:text-6xl mb-16" style={{ color: '#443416' }}>
+            {t('title')}
+          </h3>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
-              <div 
-                className="group rounded-lg p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer h-full"
-                style={{ 
-                  backgroundColor: '#ffffff',
-                  borderLeft: `6px solid ${categoryColor(post.category)}`
-                }}
+        <div>
+          {posts.map((post, i) => (
+            <Reveal key={post.slug} delay={i * 80}>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="group flex flex-col md:flex-row md:items-baseline gap-2 md:gap-10 py-8 md:py-10 border-t last:border-b transition-colors duration-300"
+                style={{ borderColor: '#44341622' }}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <span 
-                    className="text-xs font-bold px-3 py-1 rounded-full text-white"
-                    style={{ backgroundColor: categoryColor(post.category) }}
-                  >
-                    {post.category}
-                  </span>
-                  <span className="text-xs text-gray-500">{post.date}</span>
+                <span className="text-sm text-gray-500 shrink-0 md:w-32">{post.date}</span>
+                <div className="flex-1">
+                  <h4 className="font-brand-serif text-2xl md:text-3xl mb-2" style={{ color: '#443416' }}>
+                    {post.title}
+                  </h4>
+                  <p className="text-gray-600 max-w-xl">{post.excerpt}</p>
                 </div>
-
-                <h4 className="text-2xl font-bold mb-3 transition-colors duration-300 group-hover:text-amber-600" style={{ color: '#443416' }}>
-                  {post.title}
-                </h4>
-
-                <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300 mb-4">
-                  {post.excerpt}
-                </p>
-
-                <div className="text-sm font-bold transition-colors duration-300 group-hover:text-amber-600" style={{ color: '#443416' }}>
-                  Read More →
-                </div>
-              </div>
-            </Link>
+                <span
+                  className="hidden md:block text-2xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0"
+                  style={{ color: '#443416' }}
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </Link>
+            </Reveal>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Link href="/blog">
-            <button
-              className="px-10 py-4 rounded-lg font-bold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
-              style={{ backgroundColor: '#443416' }}
-            >
-              View All Articles
-            </button>
+        <Reveal delay={240} className="mt-16 text-center">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 font-bold text-lg border-b-2 pb-1 transition-colors duration-300"
+            style={{ color: '#443416', borderColor: '#ceae6e' }}
+          >
+            {t('viewAll')}
+            <span aria-hidden="true">→</span>
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

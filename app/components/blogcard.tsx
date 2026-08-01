@@ -1,5 +1,7 @@
 'use client';
 
+import { Link } from '@/lib/i18n/navigation';
+
 interface BlogCardProps {
   slug: string;
   title: string;
@@ -10,45 +12,34 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ slug, title, date, category, excerpt, index = 0 }: BlogCardProps) {
-  const categoryColor = category === 'Business' ? '#ceae6e' : category === 'Languages' ? '#771023' : '#443416';
-
   return (
-    <article 
-      className="group rounded-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-      style={{ backgroundColor: '#f9f7f4' }}
+    <Link
+      href={`/blog/${slug}`}
+      className="group flex flex-col md:flex-row items-baseline gap-2 md:gap-10 py-8 md:py-10 border-t last:border-b transition-colors duration-300"
+      style={{ borderColor: '#44341622' }}
     >
-      <div className="p-8">
-        <div className="flex flex-wrap gap-3 mb-4">
-          <span 
-            className="text-xs font-bold px-3 py-1 rounded-full text-white transition-all duration-300"
-            style={{ backgroundColor: categoryColor }}
-          >
+      <span className="font-brand-serif text-xl md:text-2xl shrink-0" style={{ color: '#ceae6e' }}>
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <div className="flex-1">
+        <div className="flex flex-wrap items-center gap-3 mb-2">
+          <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#443416' }}>
             {category}
           </span>
-          <span className="text-xs text-gray-500 px-3 py-1">
-            {date}
-          </span>
+          <span className="text-xs text-gray-500">{date}</span>
         </div>
-
-        <h3 className="text-3xl font-bold mb-4 transition-colors duration-300 group-hover:opacity-80" style={{ color: '#443416' }}>
-          <a href={`/blog/${slug}`} className="hover:underline">
-            {title}
-          </a>
+        <h3 className="font-brand-serif text-3xl md:text-4xl mb-2" style={{ color: '#443416' }}>
+          {title}
         </h3>
-
-        <p className="text-lg text-gray-600 mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-          {excerpt}
-        </p>
-
-        <a 
-          href={`/blog/${slug}`} 
-          className="inline-flex items-center font-bold transition-all duration-300 group-hover:translate-x-2"
-          style={{ color: '#ceae6e' }}
-        >
-          Read More
-          <span className="ml-2">→</span>
-        </a>
+        <p className="text-gray-600 max-w-xl">{excerpt}</p>
       </div>
-    </article>
+      <span
+        className="hidden md:block text-2xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shrink-0"
+        style={{ color: '#443416' }}
+        aria-hidden="true"
+      >
+        →
+      </span>
+    </Link>
   );
 }

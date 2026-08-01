@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Nosotros",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "languageSelector": "Selector de idioma",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "footer": {
+    "quickLinks": "Enlaces Rápidos",
+    "about": "Nosotros",
+    "blog": "Blog",
+    "contactTitle": "Contacto",
+    "followUs": "Síguenos",
+    "comingSoon": "Próximamente",
+    "rights": "Todos los derechos reservados.",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Servicios expertos de traducción para videojuegos, ciencia y documentos certificados",
+      "cta": "Solicitar Presupuesto Gratis"
+    },
+    "mission": "Traducir no es solo cambiar de idioma: es transportar el significado con cuidado de una cultura a otra. Desde documentos legales jurados hasta mundos de videojuegos e investigaciones científicas, nos aseguramos de que nada se pierda en el camino.",
+    "services": {
+      "title": "Nuestros Servicios",
+      "sworn": {
+        "title": "Traducción Jurada",
+        "description": "Traducciones oficiales certificadas para documentos legales y gubernamentales"
+      },
+      "videogame": {
+        "title": "Localización de Videojuegos",
+        "description": "Localización integral de videojuegos: diálogos, interfaz y adaptación cultural"
+      },
+      "scientific": {
+        "title": "Científico y Técnico",
+        "description": "Traducción especializada de artículos científicos, manuales y documentación técnica"
+      },
+      "interpreting": {
+        "title": "Interpretación",
+        "description": "Servicios profesionales de interpretación para reuniones, conferencias y eventos"
+      }
+    },
+    "blog": {
+      "title": "Del Blog",
+      "viewAll": "Ver Todos los Artículos",
+      "loading": "Cargando artículos del blog..."
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar su Proyecto?",
+      "subtitle": "Reciba un presupuesto gratuito de nuestros traductores expertos en menos de 24 horas",
+      "button": "Solicitar Presupuesto Gratis Ahora"
+    }
+  },
+  "about": {
+    "title": "Sobre Mnemonic",
+    "whoWeAre": {
+      "title": "Quiénes Somos",
+      "p1": "Mnemonic es una agencia de traducción especializada que ofrece servicios expertos en traducción jurada, localización de videojuegos, traducción científica y técnica, e interpretación profesional. Combinamos precisión lingüística con experiencia cultural para ofrecer traducciones que realmente conectan con su público objetivo.",
+      "p2": "Nuestra misión es simple: ofrecer traducciones precisas y culturalmente adaptadas que ayuden a nuestros clientes a comunicarse eficazmente entre idiomas y mercados. Ya sea que necesite certificar un documento legal, localizar un videojuego para nuevas regiones o traducir una investigación científica para su publicación internacional, contamos con la experiencia que necesita."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "precision": {
+        "title": "Precisión",
+        "description": "Nos aseguramos de que cada traducción sea exacta y fiel al significado y la intención originales."
+      },
+      "cultural": {
+        "title": "Experiencia Cultural",
+        "description": "Adaptamos el contenido a diferentes culturas, asegurando que su mensaje conecte a nivel local."
+      },
+      "reliability": {
+        "title": "Confiabilidad",
+        "description": "Entregamos a tiempo, siempre, con una calidad constante en la que puede confiar."
+      }
+    },
+    "team": {
+      "title": "Nuestro Equipo",
+      "description": "Estamos formando un equipo de traductores e intérpretes de primer nivel. ¡Conozca a nuestro equipo a medida que crecemos!",
+      "cta": "Contáctenos"
+    },
+    "cta": {
+      "title": "Asóciese con Mnemonic",
+      "subtitle": "Ayudemos a que su mensaje llegue al mundo",
+      "button": "Comience su Proyecto"
+    }
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "subtitle": "Nos encantaría conocer su proyecto de traducción. Complete el siguiente formulario y nos pondremos en contacto dentro de las 24 horas.",
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Hemos recibido su mensaje y nos pondremos en contacto dentro de las 24 horas."
+    },
+    "form": {
+      "name": "Su Nombre *",
+      "namePlaceholder": "Juan Pérez",
+      "email": "Correo Electrónico *",
+      "emailPlaceholder": "juan@ejemplo.com",
+      "phone": "Número de Teléfono (Opcional)",
+      "phonePlaceholder": "+54 9 123 456 7890",
+      "message": "Cuéntenos Sobre su Proyecto *",
+      "messagePlaceholder": "¿Qué tipo de traducción necesita? ¿Cuál es su plazo? ¿Algún requisito específico?",
+      "file": "Adjuntar Documento (Opcional)",
+      "fileHint": "Formatos aceptados: PDF, DOC, DOCX, TXT, XLS, XLSX (máx. 10MB)",
+      "submit": "Enviar Solicitud de Presupuesto",
+      "submitting": "Enviando su mensaje...",
+      "requiredNote": "* Campos obligatorios. Nos pondremos en contacto dentro de las 24 horas.",
+      "fileTooLarge": "El archivo debe pesar menos de 10MB",
+      "fileInvalidType": "Por favor suba un tipo de archivo válido (PDF, DOC, DOCX, TXT, XLS, XLSX)",
+      "submitError": "No se pudo enviar el mensaje. Por favor, inténtelo de nuevo.",
+      "genericError": "Ocurrió un error. Por favor, inténtelo de nuevo."
+    },
+    "info": {
+      "emailTitle": "Correo Electrónico",
+      "locationTitle": "Ubicación",
+      "location": "Argentina"
+    },
+    "cta": {
+      "title": "¿No encuentra lo que busca?",
+      "subtitle": "No dude en contactarnos directamente con cualquier pregunta",
+      "button": "Enviar un Correo"
+    }
+  },
+  "blog": {
+    "list": {
+      "title": "Blog de Traducción y Localización",
+      "subtitle": "Consejos, ideas y novedades del sector de parte de Mnemonic",
+      "loading": "Cargando...",
+      "empty": "Aún no hay artículos en el blog. ¡Vuelva pronto!",
+      "comingSoonTitle": "Más Artículos Próximamente",
+      "comingSoonBody": "Publicamos regularmente nuevas ideas sobre traducción, localización y servicios lingüísticos.",
+      "suggestTopic": "Sugerir un Tema",
+      "readMore": "Leer Más",
+      "cta": {
+        "title": "¿Listo para su Proyecto de Traducción?",
+        "subtitle": "Obtenga servicios de traducción expertos de Mnemonic",
+        "button": "Solicitar Presupuesto Gratis"
+      }
+    },
+    "post": {
+      "loading": "Cargando...",
+      "backToBlog": "Volver al Blog",
+      "notFoundTitle": "Artículo No Encontrado",
+      "notFoundBody": "Lo sentimos, no pudimos encontrar el artículo que busca.",
+      "ctaTitle": "¿Le interesan nuestros servicios de traducción?",
+      "ctaSubtitle": "Obtenga un presupuesto gratuito para su proyecto hoy mismo",
+      "ctaButton": "Solicitar Presupuesto",
+      "readMoreTitle": "Leer Más",
+      "viewAllArticles": "Ver Todos los Artículos",
+      "finalCtaTitle": "¿Listo para Comenzar su Proyecto?",
+      "finalCtaSubtitle": "Nuestros traductores expertos están listos para ayudar",
+      "finalCtaButton": "Solicitar Presupuesto Gratis"
+    }
+  }
+}
